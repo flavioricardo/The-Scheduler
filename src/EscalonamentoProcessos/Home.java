@@ -39,7 +39,7 @@ public class Home extends javax.swing.JFrame {
         AboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SCSA");
+        setTitle("The Scheduler");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocationByPlatform(true);
         setName("Home"); // NOI18N
