@@ -6,7 +6,7 @@
 /*
  * Process.java
  *
- * Created on Apr 25, 2011, 6:47:59 PM
+ * Created on May 4, 2011, 11:40:34 AM
  */
 package EscalonamentoProcessos;
 
@@ -19,15 +19,15 @@ import javax.swing.JTextField;
  */
 public class Process extends javax.swing.JFrame {
 
+    JTextField[] ProcessId;
+    JTextField[] Burst;
+    JTextField[] Arrival;
+    JTextField[] Priority;
+
     /** Creates new form Process */
     public Process() {
         initComponents();
-    }
-
-    public void clearProcessPanel(int i, int beforeAmount, int presentAmount) {
-        if (presentAmount < beforeAmount) {
-            ProcessPanel.remove(i);
-        }
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -40,26 +40,28 @@ public class Process extends javax.swing.JFrame {
     private void initComponents() {
 
         ProcessPanel = new javax.swing.JPanel();
-        AmountLabel = new javax.swing.JLabel();
-        AmountComboBox = new javax.swing.JComboBox();
         ProcessIdLabel = new javax.swing.JLabel();
-        CPUBurstLabel = new javax.swing.JLabel();
+        AmountComboBox = new javax.swing.JComboBox();
+        AmountLabel = new javax.swing.JLabel();
+        AlgorithmButton = new javax.swing.JButton();
         ArrivalLabel = new javax.swing.JLabel();
         PriorityLabel = new javax.swing.JLabel();
         AlgorithmLabel = new javax.swing.JLabel();
         AlgorithmComboBox = new javax.swing.JComboBox();
-        AlgorithmButton = new javax.swing.JButton();
+        CPUBurstLabel = new javax.swing.JLabel();
+        StepCheckBox = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SCSA - Proccess");
-        setName("ProcessFrame"); // NOI18N
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("The Scheduler");
+        setMinimumSize(new java.awt.Dimension(705, 515));
+        setName("Process"); // NOI18N
 
-        ProcessPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ProcessPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Process"));
 
-        AmountLabel.setText("Amount of Process");
+        ProcessIdLabel.setText("Process ID");
 
-        AmountComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select an Option", "1", "2", "3", "4", "5", "10" }));
+        AmountComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "10" }));
+        AmountComboBox.setSelectedIndex(-1);
         AmountComboBox.setToolTipText("Select the number of processes");
         AmountComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,9 +69,14 @@ public class Process extends javax.swing.JFrame {
             }
         });
 
-        ProcessIdLabel.setText("Process ID");
+        AmountLabel.setText("Amount of Process");
 
-        CPUBurstLabel.setText("CPU burst");
+        AlgorithmButton.setText("Run!");
+        AlgorithmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlgorithmButtonActionPerformed(evt);
+            }
+        });
 
         ArrivalLabel.setText("Arrival");
 
@@ -77,14 +84,13 @@ public class Process extends javax.swing.JFrame {
 
         AlgorithmLabel.setText("Select an Algorithm");
 
-        AlgorithmComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select an Option", "FCFS", "SJF preemptivo (SRT)", "SJF não preemptivo", "Round Robin", "Loteria" }));
+        AlgorithmComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FIFO", "Shortest-Remaining-Time-First", "Shortest Job First", "Round Robin", "Lottery" }));
+        AlgorithmComboBox.setSelectedIndex(-1);
+        AlgorithmComboBox.setToolTipText("Selects an algorithm to start the simulation");
 
-        AlgorithmButton.setText("Go");
-        AlgorithmButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AlgorithmButtonActionPerformed(evt);
-            }
-        });
+        CPUBurstLabel.setText("CPU burst");
+
+        StepCheckBox.setText("Step by Step");
 
         javax.swing.GroupLayout ProcessPanelLayout = new javax.swing.GroupLayout(ProcessPanel);
         ProcessPanel.setLayout(ProcessPanelLayout);
@@ -95,21 +101,25 @@ public class Process extends javax.swing.JFrame {
                 .addGroup(ProcessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ProcessPanelLayout.createSequentialGroup()
                         .addComponent(AmountLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(AmountComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(AlgorithmLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(AlgorithmComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(AlgorithmButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AmountComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ProcessPanelLayout.createSequentialGroup()
                         .addComponent(ProcessIdLabel)
-                        .addGap(42, 42, 42)
-                        .addComponent(CPUBurstLabel)
-                        .addGap(45, 45, 45)
+                        .addGap(35, 35, 35)
+                        .addComponent(CPUBurstLabel)))
+                .addGap(18, 18, 18)
+                .addGroup(ProcessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ProcessPanelLayout.createSequentialGroup()
+                        .addComponent(AlgorithmLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AlgorithmComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(AlgorithmButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(StepCheckBox))
+                    .addGroup(ProcessPanelLayout.createSequentialGroup()
                         .addComponent(ArrivalLabel)
-                        .addGap(62, 62, 62)
+                        .addGap(56, 56, 56)
                         .addComponent(PriorityLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -122,15 +132,15 @@ public class Process extends javax.swing.JFrame {
                     .addComponent(AmountComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AlgorithmLabel)
                     .addComponent(AlgorithmComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AlgorithmButton))
+                    .addComponent(AlgorithmButton)
+                    .addComponent(StepCheckBox))
                 .addGap(18, 18, 18)
-                .addGroup(ProcessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(ProcessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ProcessIdLabel)
-                    .addGroup(ProcessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ArrivalLabel)
-                        .addComponent(PriorityLabel))
-                    .addComponent(CPUBurstLabel))
-                .addContainerGap(358, Short.MAX_VALUE))
+                    .addComponent(CPUBurstLabel)
+                    .addComponent(ArrivalLabel)
+                    .addComponent(PriorityLabel))
+                .addGap(190, 190, 190))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -146,7 +156,7 @@ public class Process extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ProcessPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ProcessPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -155,48 +165,59 @@ public class Process extends javax.swing.JFrame {
 
     private void AmountComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmountComboBoxActionPerformed
         int amount = Integer.parseInt(AmountComboBox.getSelectedItem().toString());
-        if (amount != 0) {
-            if (JOptionPane.showConfirmDialog(null, "Register " + amount + " processes?") == 0) {
-                JTextField[] ProcessIdTextFields = new JTextField[amount];
-                JTextField[] BurstTextFields = new JTextField[amount];
-                JTextField[] ArrivalTextFields = new JTextField[amount];
-                JTextField[] PriorityTextFields = new JTextField[amount];
-                for (int i = 0; i < amount; i++) {
-                    ProcessIdTextFields[i] = new JTextField();
-                    ProcessIdTextFields[i].setBounds(14, (i == 0) ? 85 : 80 + (35 * i), 75, 25);
-                    ProcessIdTextFields[i].setText(null);
-                    ProcessIdTextFields[i].setVisible(true);
-                    ProcessPanel.add(ProcessIdTextFields[i]);
+        String confirmDialog = String.valueOf(JOptionPane.showConfirmDialog(null, "Register " + amount + " processes?"));
+        if (confirmDialog.contains("0")) {
+            ProcessId = new JTextField[amount];
+            Burst = new JTextField[amount];
+            Arrival = new JTextField[amount];
+            Priority = new JTextField[amount];
+            for (int i = 0; i < amount; i++) {
+                ProcessId[i] = new JTextField();
+                ProcessId[i].setBounds(17, (i == 0) ? 100 : 100 + (35 * i), 75, 25);
+                ProcessId[i].setText(null);
+                ProcessId[i].setVisible(true);
+                ProcessPanel.add(ProcessId[i]);
 
-                    BurstTextFields[i] = new JTextField();
-                    BurstTextFields[i].setBounds(117, (i == 0) ? 85 : 80 + (35 * i), 75, 25);
-                    BurstTextFields[i].setText(null);
-                    BurstTextFields[i].setVisible(true);
-                    ProcessPanel.add(BurstTextFields[i]);
+                Burst[i] = new JTextField();
+                Burst[i].setBounds(126, (i == 0) ? 100 : 100 + (35 * i), 75, 25);
+                Burst[i].setText(null);
+                Burst[i].setVisible(true);
+                ProcessPanel.add(Burst[i]);
 
-                    ArrivalTextFields[i] = new JTextField();
-                    ArrivalTextFields[i].setBounds(220, (i == 0) ? 85 : 80 + (35 * i), 75, 25);
-                    ArrivalTextFields[i].setText(null);
-                    ArrivalTextFields[i].setVisible(true);
-                    ProcessPanel.add(ArrivalTextFields[i]);
+                Arrival[i] = new JTextField();
+                Arrival[i].setBounds(223, (i == 0) ? 100 : 100 + (35 * i), 75, 25);
+                Arrival[i].setText(null);
+                Arrival[i].setVisible(true);
+                ProcessPanel.add(Arrival[i]);
 
-                    PriorityTextFields[i] = new JTextField();
-                    PriorityTextFields[i].setBounds(320, (i == 0) ? 85 : 80 + (35 * i), 75, 25);
-                    PriorityTextFields[i].setText(null);
-                    PriorityTextFields[i].setVisible(true);
-                    ProcessPanel.add(PriorityTextFields[i]);
-                }
-                ProcessPanel.repaint();
+                Priority[i] = new JTextField();
+                Priority[i].setBounds(323, (i == 0) ? 100 : 100 + (35 * i), 75, 25);
+                Priority[i].setText(null);
+                Priority[i].setVisible(true);
+                ProcessPanel.add(Priority[i]);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Quantity selected is invalid!");
+            ProcessPanel.repaint();
         }
-    }//GEN-LAST:event_AmountComboBoxActionPerformed
-
+}//GEN-LAST:event_AmountComboBoxActionPerformed
     private void AlgorithmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlgorithmButtonActionPerformed
-        int algorithm = Integer.parseInt(AlgorithmComboBox.getSelectedItem().toString());
-
-    }//GEN-LAST:event_AlgorithmButtonActionPerformed
+        int algorithm = AlgorithmComboBox.getSelectedIndex();
+        switch (algorithm) {
+            case 1:
+                new FIFO(ProcessId, Burst, Arrival, Priority).setVisible(true);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Select an Option");
+                break;
+        }
+}//GEN-LAST:event_AlgorithmButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,5 +241,6 @@ public class Process extends javax.swing.JFrame {
     private javax.swing.JLabel PriorityLabel;
     private javax.swing.JLabel ProcessIdLabel;
     private javax.swing.JPanel ProcessPanel;
+    private javax.swing.JCheckBox StepCheckBox;
     // End of variables declaration//GEN-END:variables
 }
