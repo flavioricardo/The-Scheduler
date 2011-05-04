@@ -10,6 +10,7 @@
  */
 package EscalonamentoProcessos;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -27,13 +28,20 @@ public class FIFO extends javax.swing.JFrame {
     public FIFO() {
         initComponents();
         setLocationRelativeTo(null);
+        fazAlgumaCoisa();
     }
 
-    FIFO(JTextField[] ProcessId, JTextField[] Burst, JTextField[] Arrival, JTextField[] Priority) {
-        this.ProcessId = ProcessId;
-        this.Burst = Burst;
-        this.Arrival = Arrival;
-        this.Priority = Priority;
+//    FIFO(JTextField[] ProcessId, JTextField[] Burst, JTextField[] Arrival, JTextField[] Priority) {
+//        this.ProcessId = ProcessId;
+//        this.Burst = Burst;
+//        this.Arrival = Arrival;
+//        this.Priority = Priority;
+//    }
+
+    public final void fazAlgumaCoisa() {
+//        for (int i = 0; i < this.ProcessId.length; i++) {
+            JOptionPane.showMessageDialog(null, "Show me the code!");
+//        }
     }
 
     /** This method is called from within the constructor to
@@ -49,7 +57,7 @@ public class FIFO extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("The Scheduler » FIFO");
-        setMinimumSize(new java.awt.Dimension(630, 450));
+        setMinimumSize(new java.awt.Dimension(705, 515));
         setName("FIFO"); // NOI18N
 
         FIFOPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -58,11 +66,11 @@ public class FIFO extends javax.swing.JFrame {
         FIFOPanel.setLayout(FIFOPanelLayout);
         FIFOPanelLayout.setHorizontalGroup(
             FIFOPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 606, Short.MAX_VALUE)
+            .addGap(0, 677, Short.MAX_VALUE)
         );
         FIFOPanelLayout.setVerticalGroup(
             FIFOPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 424, Short.MAX_VALUE)
+            .addGap(0, 487, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -81,6 +89,8 @@ public class FIFO extends javax.swing.JFrame {
                 .addComponent(FIFOPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -91,6 +101,7 @@ public class FIFO extends javax.swing.JFrame {
 
             public void run() {
                 new FIFO().setVisible(true);
+                
             }
         });
     }

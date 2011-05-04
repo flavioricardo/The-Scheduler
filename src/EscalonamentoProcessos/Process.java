@@ -51,7 +51,7 @@ public class Process extends javax.swing.JFrame {
         CPUBurstLabel = new javax.swing.JLabel();
         StepCheckBox = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("The Scheduler");
         setMinimumSize(new java.awt.Dimension(705, 515));
         setName("Process"); // NOI18N
@@ -202,8 +202,10 @@ public class Process extends javax.swing.JFrame {
     private void AlgorithmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlgorithmButtonActionPerformed
         int algorithm = AlgorithmComboBox.getSelectedIndex();
         switch (algorithm) {
+            case 0:
+                new FIFO().setVisible(true);
+                break;
             case 1:
-                new FIFO(ProcessId, Burst, Arrival, Priority).setVisible(true);
                 break;
             case 2:
                 break;
@@ -211,10 +213,8 @@ public class Process extends javax.swing.JFrame {
                 break;
             case 4:
                 break;
-            case 5:
-                break;
             default:
-                JOptionPane.showMessageDialog(null, "Select an Option");
+                JOptionPane.showMessageDialog(null, "Selects an algorithm to start the simulation!");
                 break;
         }
 }//GEN-LAST:event_AlgorithmButtonActionPerformed
