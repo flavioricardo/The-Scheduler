@@ -8,8 +8,16 @@
  *
  * Created on May 4, 2011, 11:40:34 AM
  */
-package EscalonamentoProcessos;
+package ProcessScheduling;
 
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.io.Serializable;
+import javax.accessibility.Accessible;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -17,12 +25,13 @@ import javax.swing.JTextField;
  *
  * @author flavio
  */
-public class Process extends javax.swing.JFrame {
+public class Process extends javax.swing.JFrame implements Icon, Serializable, Accessible {
 
     JTextField[] ProcessId;
     JTextField[] Burst;
     JTextField[] Arrival;
     JTextField[] Priority;
+    JLabel[] ActionButtons;
 
     /** Creates new form Process */
     public Process() {
@@ -52,7 +61,7 @@ public class Process extends javax.swing.JFrame {
         StepCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("The Scheduler");
+        setTitle("The Scheduler  » Process");
         setMinimumSize(new java.awt.Dimension(705, 515));
         setName("Process"); // NOI18N
 
@@ -167,10 +176,14 @@ public class Process extends javax.swing.JFrame {
         int amount = Integer.parseInt(AmountComboBox.getSelectedItem().toString());
         String confirmDialog = String.valueOf(JOptionPane.showConfirmDialog(null, "Register " + amount + " processes?"));
         if (confirmDialog.contains("0")) {
+            ImageIcon icon = new ImageIcon(getClass().getResource("/Media/Images/bin_closed.png"));
+
             ProcessId = new JTextField[amount];
             Burst = new JTextField[amount];
             Arrival = new JTextField[amount];
             Priority = new JTextField[amount];
+            ActionButtons = new JLabel[amount];
+
             for (int i = 0; i < amount; i++) {
                 ProcessId[i] = new JTextField();
                 ProcessId[i].setBounds(17, (i == 0) ? 100 : 100 + (35 * i), 75, 25);
@@ -195,6 +208,13 @@ public class Process extends javax.swing.JFrame {
                 Priority[i].setText(null);
                 Priority[i].setVisible(true);
                 ProcessPanel.add(Priority[i]);
+
+                ActionButtons[i] = new JLabel();
+                ActionButtons[i].setIcon(icon);
+                ActionButtons[i].setBounds(410, (i == 0) ? 105 : 105 + (35 * i), 16, 16);
+                ActionButtons[i].setVisible(true);
+                ActionButtons[i].setCursor(new Cursor(HAND_CURSOR));
+                ProcessPanel.add(ActionButtons[i]);
             }
             ProcessPanel.repaint();
         }
@@ -203,7 +223,7 @@ public class Process extends javax.swing.JFrame {
         int algorithm = AlgorithmComboBox.getSelectedIndex();
         switch (algorithm) {
             case 0:
-                new FIFO().setVisible(true);
+                new FIFO(ProcessId, Burst, Arrival, Priority).setVisible(true);
                 break;
             case 1:
                 break;
@@ -243,4 +263,16 @@ public class Process extends javax.swing.JFrame {
     private javax.swing.JPanel ProcessPanel;
     private javax.swing.JCheckBox StepCheckBox;
     // End of variables declaration//GEN-END:variables
+
+    public void paintIcon(Component cmpnt, Graphics grphcs, int i, int i1) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public int getIconWidth() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public int getIconHeight() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

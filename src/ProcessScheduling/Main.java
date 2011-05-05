@@ -8,7 +8,7 @@
  *
  * Created on Apr 25, 2011, 6:43:32 PM
  */
-package EscalonamentoProcessos;
+package ProcessScheduling;
 
 /**
  *
@@ -120,7 +120,8 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProcessMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProcessMenuItemMousePressed
-        new Process().setVisible(true);
+        new Process() {
+        }.setVisible(true);
     }//GEN-LAST:event_ProcessMenuItemMousePressed
 
     private void HelpMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HelpMenuItemMousePressed

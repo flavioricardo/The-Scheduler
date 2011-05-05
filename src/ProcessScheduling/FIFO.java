@@ -8,7 +8,7 @@
  *
  * Created on May 3, 2011, 5:42:14 PM
  */
-package EscalonamentoProcessos;
+package ProcessScheduling;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -19,29 +19,26 @@ import javax.swing.JTextField;
  */
 public class FIFO extends javax.swing.JFrame {
 
-    public JTextField[] ProcessId;
-    public JTextField[] Burst;
-    public JTextField[] Arrival;
-    public JTextField[] Priority;
+    JTextField[] ProcessIdList;
+    JTextField[] BurstList;
+    JTextField[] ArrivalList;
+    JTextField[] PriorityList;
 
     /** Creates new form FIFO */
-    public FIFO() {
+    public FIFO(JTextField[] ProcessId, JTextField[] Burst, JTextField[] Arrival, JTextField[] Priority) {
+        this.ProcessIdList = ProcessId;
+        this.BurstList = Burst;
+        this.ArrivalList = Arrival;
+        this.PriorityList = Priority;
+        initFIFO();
         initComponents();
         setLocationRelativeTo(null);
-        fazAlgumaCoisa();
     }
 
-//    FIFO(JTextField[] ProcessId, JTextField[] Burst, JTextField[] Arrival, JTextField[] Priority) {
-//        this.ProcessId = ProcessId;
-//        this.Burst = Burst;
-//        this.Arrival = Arrival;
-//        this.Priority = Priority;
-//    }
-
-    public final void fazAlgumaCoisa() {
-//        for (int i = 0; i < this.ProcessId.length; i++) {
-            JOptionPane.showMessageDialog(null, "Show me the code!");
-//        }
+    public final void initFIFO() {
+        for (int i = 0; i < this.ProcessIdList.length; i++) {
+            JOptionPane.showMessageDialog(null, "Process Id: " + this.ProcessIdList[i].getText() + " -  Arraival: " + this.ArrivalList[i].getText());
+        }
     }
 
     /** This method is called from within the constructor to
@@ -100,8 +97,7 @@ public class FIFO extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new FIFO().setVisible(true);
-                
+//                new FIFO().setVisible(true);
             }
         });
     }

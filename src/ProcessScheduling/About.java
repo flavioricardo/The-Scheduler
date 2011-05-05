@@ -4,20 +4,20 @@
  */
 
 /*
- * Help.java
+ * About.java
  *
- * Created on Apr 25, 2011, 7:12:09 PM
+ * Created on Apr 25, 2011, 7:11:18 PM
  */
-package EscalonamentoProcessos;
+package ProcessScheduling;
 
 /**
  *
  * @author flavio
  */
-public class Help extends javax.swing.JFrame {
+public class About extends javax.swing.JFrame {
 
-    /** Creates new form Help */
-    public Help() {
+    /** Creates new form About */
+    public About() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -32,23 +32,35 @@ public class Help extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        PhotoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("The Scheduler » Help");
+        setTitle("The Scheduler » About");
         setMinimumSize(new java.awt.Dimension(630, 450));
-        setName("Help"); // NOI18N
+        setName("About"); // NOI18N
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        PhotoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Images/flavioricardo.png"))); // NOI18N
+        PhotoLabel.setMaximumSize(new java.awt.Dimension(80, 80));
+        PhotoLabel.setMinimumSize(new java.awt.Dimension(80, 80));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 606, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(476, Short.MAX_VALUE)
+                .addComponent(PhotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 424, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PhotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(293, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -78,11 +90,12 @@ public class Help extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new Help().setVisible(true);
+                new About().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel PhotoLabel;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

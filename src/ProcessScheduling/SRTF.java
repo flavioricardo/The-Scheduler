@@ -8,8 +8,7 @@
  *
  * Created on May 3, 2011, 6:54:22 PM
  */
-
-package EscalonamentoProcessos;
+package ProcessScheduling;
 
 /**
  *
@@ -71,18 +70,17 @@ public class SRTF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new SRTF().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-
 }
