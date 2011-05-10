@@ -1,4 +1,4 @@
-package ProcessScheduling;
+package application;
 
 import javax.swing.JTextField;
 
@@ -14,12 +14,8 @@ public class FIFO extends javax.swing.JFrame {
         this.BurstList = Burst;
         this.ArrivalList = Arrival;
         this.PriorityList = Priority;
-        initFIFO();
         initComponents();
         setLocationRelativeTo(null);
-    }
-
-    public final void initFIFO() {
     }
 
     @SuppressWarnings("unchecked")
@@ -70,7 +66,6 @@ public class FIFO extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-//                new FIFO().setVisible(true);
             }
         });
     }

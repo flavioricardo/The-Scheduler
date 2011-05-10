@@ -1,4 +1,4 @@
-package ProcessScheduling;
+package application;
 
 import java.awt.Component;
 import java.awt.Cursor;
@@ -157,38 +157,32 @@ public class Process extends javax.swing.JFrame implements Icon, Serializable, A
         String confirmDialog = String.valueOf(JOptionPane.showConfirmDialog(null, "Register " + amount + " processes?"));
         if (confirmDialog.contains("0")) {
             ImageIcon icon = new ImageIcon(getClass().getResource("/Images/bin_closed.png"));
-
             ProcessId = new JTextField[amount];
             Burst = new JTextField[amount];
             Arrival = new JTextField[amount];
             Priority = new JTextField[amount];
             ActionButtons = new JLabel[amount];
-
             for (int i = 0; i < amount; i++) {
                 ProcessId[i] = new JTextField();
                 ProcessId[i].setBounds(17, (i == 0) ? 100 : 100 + (35 * i), 75, 25);
                 ProcessId[i].setText(null);
                 ProcessId[i].setVisible(true);
                 ProcessPanel.add(ProcessId[i]);
-
                 Burst[i] = new JTextField();
                 Burst[i].setBounds(126, (i == 0) ? 100 : 100 + (35 * i), 75, 25);
                 Burst[i].setText(null);
                 Burst[i].setVisible(true);
                 ProcessPanel.add(Burst[i]);
-
                 Arrival[i] = new JTextField();
                 Arrival[i].setBounds(223, (i == 0) ? 100 : 100 + (35 * i), 75, 25);
                 Arrival[i].setText(null);
                 Arrival[i].setVisible(true);
                 ProcessPanel.add(Arrival[i]);
-
                 Priority[i] = new JTextField();
                 Priority[i].setBounds(323, (i == 0) ? 100 : 100 + (35 * i), 75, 25);
                 Priority[i].setText(null);
                 Priority[i].setVisible(true);
                 ProcessPanel.add(Priority[i]);
-
                 ActionButtons[i] = new JLabel();
                 ActionButtons[i].setIcon(icon);
                 ActionButtons[i].setBounds(410, (i == 0) ? 105 : 105 + (35 * i), 16, 16);

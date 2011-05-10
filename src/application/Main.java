@@ -1,4 +1,4 @@
-package ProcessScheduling;
+package application;
 
 public class Main extends javax.swing.JFrame {
 
